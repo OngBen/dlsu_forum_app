@@ -3,7 +3,7 @@
 var express = require("express");
 var app = express();
 
-require(`dotenv`).config();
+//require(`dotenv`).config();
 
 const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost/gallerydb",{useNewURLParser: true, useUnifiedTopology: true});
