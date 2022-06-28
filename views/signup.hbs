@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<a href = "/"><button class = "btn green">Back to Main Page</button></a><br /><br />
+	<div class="flex h-screen">	
+		<form action="/sign-up" method="post" enctype="multipart/form-data">
+			<label for="idNumber">Enter ID number</label>
+			<input id="idNumber" name="idNumber" type="number"><br>
+			<label for="firstname">Enter your First Name</label>
+			<input id="firstName" name="firstName" type="text"><br>
+			<label for="lastname">Enter your Last Name</label>
+			<input id="lastName" name="lastName" type="text"><br>
+			<label for="password">Enter password</label>
+			<input id="password" name="password" type="password"><br>
+			<label for="confirmPassword">Re-enter password</label>
+			<input id="confirmPassword" name="confirmPassword" type="password"><br>
+			<label for="email">Enter DLSU email</label>
+			<input id="email" name="email" type="email"><br>
+			<p id="error">{{error}}</p>
+			<input type="submit" class="btn green" value="submit">
+		</form>
+	</div>
+</body>
+
+</html>

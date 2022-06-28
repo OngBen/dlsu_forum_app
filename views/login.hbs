@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<a href = "/"><button class = "btn green">Back to Main Page</button></a><br /><br />
+	<div class="flex h-screen">	
+		<form action="/log-in" method="post" enctype="multipart/form-data">		
+			<div class="control">
+				<label for="idNumber">Enter ID number</label>
+				<input name="idNumber" id="idNumber"type="number">
+			</div>
+			<div class="control">
+				<label for="password">Enter password</label>
+				<input name="password" id="password"type="password">
+			</div>
+			<input class="btn green" type="submit" value="submit">
+		</form>
+		<p id="error">{{error}}</p>
+		<script src = "script.js"></script>
+	</div>
+</body>
+</html>

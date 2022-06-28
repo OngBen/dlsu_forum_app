@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>{{#each users}}{{this.firstName}} {{this.lastName}}{{/each}}</title>
+		<link href="css/style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+		<img src = "{{#each users}}{{this.image}}{{/each}}" width = 200px height = 200px></img><br>
+		<form action="/edit-profile-pic" method = "post" enctype="multipart/form-data">
+			<input type = "file" name="image"> <br />
+			<input type="submit" class="btn green" value="Change Profile Picture">
+		</form>
+		<a href = "/Home"><button class = "btn green">HOME</button></a><br /><br />	
+		<span>Sort By:</span>
+		<select name="choice" id="Search By">
+			<option value="earliest">Earliest Post</option>
+			<option value="latest">Latest Update</option>
+			<option value="likes">Most Likes</option>
+			<option value="dislikes">Most Dislikes</option>
+		</select><button>Sort</button>
+		<br />
+        <span>Search:</span>
+        <input type="search" placeholder="Enter keyword..."/>
+		<button>Search</button>
+		<br />
+		<a href = "#"><button class = "btn green">Edit Profile</button></a>
+		<a href = "#"><button class = "btn green">Delete Account</button></a>
+		<caption> {{#each users}}<h1>{{this.firstName}} {{this.lastName}}</h1>  <h3>ID No. {{this.idNumber}}</h3>{{/each}} </caption>
+        <table>
+            
+			
+            <!--<tr>
+                <th width="10%"> Date Created </th>
+                <th width="70%"> Subject </th>
+                <th width="10%"> No. of Replies </th>
+				<th width="10%"> Last Reply </th>
+            </tr>
+            
+            <tr>
+                <td> Jan. 1, 2025 </td>
+                <td> <a href="Discussion1.html">Happy New Years</a> </td>
+                <td> 6 </td>
+				<td> Jan 1, 2026 at 00:00:01</td>
+            </tr>
+        </table>
+    </body>
+</html>

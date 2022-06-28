@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <title>{{type}} Page</title>
+		<link href="css/style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+		<a href = "/Home"><button class = "btn green">HOME</button></a><br /><br />	
+		<form action="/sort-posts" method = "post" enctype="multipart/form-data">
+			<span>Sort By:</span>
+			<input type="hidden" id=="type" name="type" value="{{type}}">
+			<select name="choice" id="Search By">	
+				<option value="earliest">Earliest Post</option>
+				<option value="latest">Latest Post</option>
+				<option value="alphabetical">Alphabetical</option>	
+			
+				<input type="submit" value="Sort">
+			</select>
+		</form>
+		<form action="/search-posts" method = "post" enctype="multipart/form-data">
+			<input type="hidden" id=="type" name="type" value="{{type}}">
+			<span>Search:</span>
+			<input type="search" name="search" placeholder="Enter keyword..."/>
+			<input type="submit" value="Search">
+		</form>
+		<br />	
+
+		<form action="/NewPost" method = "post" enctype="multipart/form-data">
+			<input type="hidden" id=="type" name="type" value="{{type}}">
+			<input type="hidden" id=="id" name="id" value="{{id}}">
+			<input type="submit" class="btn green" value="Create New {{type}}">
+		</form>
+
+        <table>
+            <caption><h1> {{type}}</h1></caption>
+			
+            <tr>
+                <th width="10%"> Original Poster </th>
+                <th width="70%"> Subject </th>
+                <th width="10%"> No. of Replies </th>
+				<th width="10%"> Date Created </th>
+            </tr>
+            {{#each posts}}
+            <tr>
+				<form action="/post" method = "post">
+				<input type="hidden" id=="postID" name="postID" value="{{this._id}}">
+				<input type="hidden" id=="datetime" name="datetime" value="{{this.datetime}}"> 
+				<input type="hidden" id=="title" name="title" value="{{this.title}}"> 
+				<input type="hidden" id=="content" name="content" value="{{this.content}}"> 
+				<input type="hidden" id=="type" name="type" value="{{type}}">
+				<td> <a href="/poster-profile?id={{this.student._id}}">{{this.student.firstName}} {{this.student.lastName}}</a></td>	 
+                <td> <input type="submit" class="btn green" value="{{this.title}}"></td>
+                <td> {{this.commentNo}} </td>
+				<td> {{this.datetime}} </td>
+				</form>				
+            </tr>
+            {{/each}}           
+          
+        </table>
+                  
+
+    </body>
+</html>

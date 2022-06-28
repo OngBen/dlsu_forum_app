@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>Edit Comment</title>
+		<link href="../css/style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>	
+		<form action="/back-to-post" method = "post" enctype="multipart/form-data">
+			<input type="hidden" id=="postID" name="postID" value="{{#each posts}}{{this._id}}{{/each}}">
+			<input type="submit" class="btn green" value="Back">
+		</form>
+		<form action="/update-comment" method = "post" enctype="multipart/form-data">
+			<input type="hidden" id=="commentID" name="commentID" value="{{#each comments}}{{this._id}}{{/each}}">
+			Content: <br><textarea name="content" rows="10" cols="30"></textarea><br />
+			<input type="submit">
+		</form><br>	
+		<p id="error">{{commentError}}</p>
+		<script src = "#"></script>
+    </body>
+</html>

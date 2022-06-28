@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <title>{{#each posts}}{{this.title}}{{/each}}</title>
+		<link href="../css/style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+		<form action="/Body" method = "post" enctype="multipart/form-data">
+			<input type="hidden" id=="type" name="type" value="{{#each posts}}{{this.type}}{{/each}}">
+			<input type="submit" class="btn green" value="Back to {{#each posts}}{{this.type}}{{/each}}">
+		</form>
+		<div>
+			<span>Posted by:<a href="/poster-profile?id={{#each posts}}{{this.student._id}}{{/each}}">{{#each posts}}{{this.student.firstName}} {{this.student.lastName}}{{/each}} </a> on {{#each posts}}{{this.datetime}}{{/each}}</span>
+			 
+			<p id = "posted_paragraph">{{#each posts}}{{this.content}}{{/each}}</p>
+
+			<form action="/edit-post" method = "post" enctype="multipart/form-data">
+				<input type="hidden" id=="id" name="id" value="{{#each posts}}{{this._id}}{{/each}}">
+				<input type="hidden" id=="studentid" name="studentid" value="{{#each posts}}{{this.student._id}}{{/each}}">
+				<input type="submit" class="btn blue" value="Edit">
+			</form>
+			<form action="/delete-post" method = "post" enctype="multipart/form-data">
+				<input type="hidden" id=="id" name="id" value="{{#each posts}}{{this._id}}{{/each}}">
+				<input type="hidden" id=="studentid" name="studentid" value="{{#each posts}}{{this.student._id}}{{/each}}">
+				<input type="hidden" id=="type" name="type" value="{{#each posts}}{{this.type}}{{/each}}">
+				<input type="submit" class="btn blue" value="Delete">
+			</form>
+			<p id="error">{{postError}}</p>
+		</div>
+		
+		<br>Comment as: <span>{{#each users}}{{this.firstName}} {{this.lastName}}{{/each}}</span><br><br>
+		
+		
+		<form action="/submit-comment" method = "post" enctype="multipart/form-data">
+			<input type="hidden" id=="postID" name="postID" value="{{#each posts}}{{this._id}}{{/each}}">
+			<input type="hidden" id=="student" name="student" value="{{#each users}}{{this._id}}{{/each}}">
+			<input type="hidden" id=="title" name="title" value="{{#each posts}}{{this.title}}{{/each}}"> 
+			<input type="hidden" id=="type" name="type" value="{{#each posts}}{{this.type}}{{/each}}">
+			<input type="hidden" id=="commentNo" name="commentNo" value="{{#each posts}}{{this.commentNo}}{{/each}}">
+			Content: <br><textarea name="content" rows="10" cols="30"></textarea><br />
+			<input type="submit">
+		</form>
+		<p id="error">{{commentError}}</p><br>
+		<form action="/search-comments" method = "post" enctype="multipart/form-data">
+			<input type="hidden" id=="postID" name="postID" value="{{#each posts}}{{this._id}}{{/each}}">
+			<span>Search:</span>
+			<input type="search" name="search" placeholder="Enter keyword..."/>
+			<input type="submit" value="Search">
+		</form>
+		
+		<div id="allComments">
+			<p id="error">{{commentError2}}</p>
+			{{#each comments}}
+				<div>
+				<h2>Posted by:<a href="/poster-profile?id={{this.student._id}}">{{this.student.firstName}} {{this.student.lastName}} </a> on: {{this.datetime}}</h2>
+				<p>Comment: {{this.content}}</p> <br>
+				<form action="/edit-comment" method = "post" enctype="multipart/form-data">
+					<input type="hidden" id=="studentid" name="studentid" value="{{this.student._id}}">
+					<input type="hidden" id=="id" name="id" value="{{this._id}}">
+					<input type="submit" class="btn blue" value="Edit">
+				</form>
+				<form action="/delete-comment" method = "post" enctype="multipart/form-data">
+					<input type="hidden" id=="id" name="id" value="{{this._id}}">
+					<input type="hidden" id=="studentid" name="studentid" value="{{this.student._id}}">
+					<input type="hidden" id=="type" name="type" value="{{this.type}}">
+					<input type="submit" class="btn blue" value="Delete">
+				</form>
+				
+				</div>
+			{{/each}}		
+		</div>
+		<script src = "#"></script>
+    </body>
+</html>

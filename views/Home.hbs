@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Home</title>
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<!-- <body>
+  Hello world
+  <script src="script.js"></script>
+</body> -->
+
+<body>  
+	<div class="flex h-screen">
+		<h1>Welcome, {{#each users}}{{this.firstName}} {{this.lastName}}{{/each}}</h1>
+		<form action="/Body" method = "post">
+			<input type="hidden" id=="type" name="type" value="Announcements">
+			<input type="submit" class="btn green" value="Announcements">
+		</form>
+		
+		<form action="/Body" method = "post">
+			<input type="hidden" id=="type" name="type" value="Discussions">
+			<input type="submit" class="btn green" value="Discussions">
+		</form>
+		
+		<form action="/Body" method = "post">
+			<input type="hidden" id=="type" name="type" value="Professors">
+			<input type="submit" class="btn green" value="Professors">
+		</form>
+		
+		<form action="/profile" method = "post">
+			<input type="submit" class="btn green" value="Profile">
+		</form>
+		
+		<form action="/about" method = "post">
+			<input type="submit" class="btn green" value="About">
+		</form>
+		
+		<a href="/logout">
+			<button class="btn green">
+			Log out	
+			</button>
+		</a>
+		</div>
+		<script src = "script.js"></script>
+		
+	</body>
+
+</html>

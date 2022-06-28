@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>New {{type}}</title>
+		<link href="css/style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+		<a href="/Body"><button class = "btn green">Home</button></a>
+		<form action="/submit-post" method = "post" enctype="multipart/form-data">
+			<input name="datetime" type="datetime-local" disabled="disabled" class="hide"/> <br>
+			Title: <br> <input name="title" type="text" /><br />
+			Content: <br><textarea name="content" rows="10" cols="50"></textarea><br />
+			<input type="hidden" id=="type" name="type" value="{{type}}">
+			<input type="hidden" id=="id" name="id" value="{{id}}">
+			<input type="submit">
+		</form><br>
+		<p id="error">{{error}}</p>
+		
+		
+		<script src = "#"></script>
+    </body>
+</html>
