@@ -3,7 +3,7 @@ const Comment = require("../database/models/Comment");
 const User = require('../database/models/user');
 const path = require("path");
 const fileUpload = require("express-fileupload");
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 var tempID;
 var tempType;
 
