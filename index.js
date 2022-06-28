@@ -37,5 +37,5 @@ var hbs = require("hbs");
 app.set("view engine", "hbs");
 
 var server = app.listen(port, function(){
-	console.log("Listening at port 3000");
+	console.log("Listening at port" + port);
 });
