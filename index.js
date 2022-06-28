@@ -1,7 +1,9 @@
-var PORT = process.env.PORT || 3000;
+var port = process.env.PORT || 3000;
 
 var express = require("express");
 var app = express();
+
+require(`dotenv`).config();
 
 const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost/gallerydb",{useNewURLParser: true, useUnifiedTopology: true});
@@ -34,6 +36,6 @@ app.use('/', routes);
 var hbs = require("hbs");
 app.set("view engine", "hbs");
 
-var server = app.listen(PORT, function(){
+var server = app.listen(port, function(){
 	console.log("Listening at port 3000");
 });
