@@ -3,10 +3,10 @@ var port = process.env.PORT || 3000;
 var express = require("express");
 var app = express();
 
-//require(`dotenv`).config();
+require('dotenv').config();
 
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/gallerydb",{useNewURLParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/gallerydb",{useNewURLParser: true, useUnifiedTopology: true});
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -37,5 +37,5 @@ var hbs = require("hbs");
 app.set("view engine", "hbs");
 
 var server = app.listen(port, function(){
-	console.log("Listening at port" + port);
+	console.log("Listening at port " + port);
 });
