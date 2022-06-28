@@ -1,14 +1,15 @@
 var PORT = process.env.PORT || 3000;
+
 var express = require("express");
 var app = express();
 
 const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost/gallerydb",{useNewURLParser: true, useUnifiedTopology: true});
 
-const bodyParser = require(`body-parser`);
+const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 const fileUpload = require("express-fileupload");
-const routes = require(`./routes/routes.js`);
+const routes = require('./routes/routes.js');
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));

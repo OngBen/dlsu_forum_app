@@ -1,5 +1,3 @@
-const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/gallerydb",{useNewURLParser: true, useUnifiedTopology: true});
 const Post = require("../database/models/Post");
 const Comment = require("../database/models/Comment");
 const User = require('../database/models/user');
