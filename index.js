@@ -1,4 +1,4 @@
-var port = process.env.PORT || 3000;
+//var port = process.env.PORT || 3000;
 
 var express = require("express");
 var app = express();
@@ -36,6 +36,6 @@ app.use('/', routes);
 var hbs = require("hbs");
 app.set("view engine", "hbs");
 
-var server = app.listen(port, function(){
+var server = app.listen(3000, function(){
 	console.log("Listening at port 3000");
 });
