@@ -14,7 +14,6 @@ const controller = {
 	},
 	
 	getLogOut: function (req, res){
-		console.log(req.session.user);
 		if (req.session.user) {
 			req.session.destroy(() => {
 				res.clearCookie('connect.sid');
@@ -34,9 +33,7 @@ const controller = {
 				bcrypt.compare(req.body.password, users.password, function(err, result) {
 					if(result){
 						res.render("Home.hbs", {users});
-						console.log(users._id);
 						req.session.user = users._id;
-						console.log(req.session.user);
 					}
 						
 					else
@@ -103,14 +100,12 @@ const controller = {
 	},
 	
 	getProfile: async(req,res)=>{
-		console.log(req.session.user);
 		const posts = await Post.find({student:req.session.user}).populate("student");
 		const users = await User.find({_id:req.session.user});
 		res.render("profile", {posts, users});
 	},
 	
 	postProfile: async(req,res)=>{
-		console.log(req.session.user);
 		const posts = await Post.find({student:req.session.user}).populate("student");
 		const users = await User.find({_id:req.session.user});
 		res.render("profile", {posts, users});
@@ -203,7 +198,6 @@ const controller = {
 	},
 	
 	getPosterProfile: async(req,res)=>{
-		console.log(req.query.id);
 		const posts = await Post.find({student:req.query.id}).populate("student");
 		const users = await User.find({_id:req.query.id});
 		res.render("profile", {posts, users});
@@ -233,7 +227,6 @@ const controller = {
 	},
 	
 	postSubmitComment: async(req,res)=>{
-		console.log(req.body.student);
 		if (req.body.content != ""){
 			tempID = req.body.postID;
 			var datetime = new Date();
