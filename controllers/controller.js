@@ -136,7 +136,7 @@ const controller = {
 		else{
 			const posts = await Post.find({student:req.body.studentid}).populate("student");
 			const users = await User.find({_id:req.body.studentid});
-			res.render("profile", {posts, users, profileError: "*You do not have the authorization to edit another student's post."});
+			res.render("profile", {posts, users, profileError: "*You do not have the authorization to edit another student's profile."});
 		}	
 	},
 	
@@ -166,7 +166,7 @@ const controller = {
 		else{
 			const posts = await Post.find({student:req.body.studentid}).populate("student");
 			const users = await User.find({_id:req.body.studentid});
-			res.render("profile", {posts, users, profileError: "*You do not have the authorization to edit another student's post."});
+			res.render("profile", {posts, users, profileError: "*You do not have the authorization to edit another student's profile."});
 		}	
 	},
 	
