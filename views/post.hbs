@@ -12,18 +12,21 @@
 			<span>Posted by:<a href="/poster-profile?id={{#each posts}}{{this.student._id}}{{/each}}">{{#each posts}}{{this.student.firstName}} {{this.student.lastName}}{{/each}} </a> on {{#each posts}}{{this.datetime}}{{/each}}</span>
 			 
 			<p id = "posted_paragraph">{{#each posts}}{{this.content}}{{/each}}</p>
-
-			<form action="/edit-post" method = "post" enctype="multipart/form-data">
-				<input type="hidden" id=="id" name="id" value="{{#each posts}}{{this._id}}{{/each}}">
-				<input type="hidden" id=="studentid" name="studentid" value="{{#each posts}}{{this.student._id}}{{/each}}">
-				<input type="submit" class="btn blue" value="Edit">
-			</form>
-			<form action="/delete-post" method = "post" enctype="multipart/form-data">
-				<input type="hidden" id=="id" name="id" value="{{#each posts}}{{this._id}}{{/each}}">
-				<input type="hidden" id=="studentid" name="studentid" value="{{#each posts}}{{this.student._id}}{{/each}}">
-				<input type="hidden" id=="type" name="type" value="{{#each posts}}{{this.type}}{{/each}}">
-				<input type="submit" class="btn blue" value="Delete">
-			</form>
+			<div class="formsidebyside">
+				<form action="/edit-post" method = "post" enctype="multipart/form-data">
+					<input type="hidden" id=="id" name="id" value="{{#each posts}}{{this._id}}{{/each}}">
+					<input type="hidden" id=="studentid" name="studentid" value="{{#each posts}}{{this.student._id}}{{/each}}">
+					<input type="submit" class="btn blue" value="Edit">
+				</form>
+			</div>
+			<div class="formsidebyside">
+				<form action="/delete-post" method = "post" enctype="multipart/form-data">
+					<input type="hidden" id=="id" name="id" value="{{#each posts}}{{this._id}}{{/each}}">
+					<input type="hidden" id=="studentid" name="studentid" value="{{#each posts}}{{this.student._id}}{{/each}}">
+					<input type="hidden" id=="type" name="type" value="{{#each posts}}{{this.type}}{{/each}}">
+					<input type="submit" class="btn blue" value="Delete">
+				</form>
+			</div>
 			<p id="error">{{postError}}</p>
 		</div>
 		
@@ -53,18 +56,21 @@
 				<div>
 				<h2>Posted by:<a href="/poster-profile?id={{this.student._id}}">{{this.student.firstName}} {{this.student.lastName}} </a> on: {{this.datetime}}</h2>
 				<p>Comment: {{this.content}}</p> <br>
-				<form action="/edit-comment" method = "post" enctype="multipart/form-data">
-					<input type="hidden" id=="studentid" name="studentid" value="{{this.student._id}}">
-					<input type="hidden" id=="id" name="id" value="{{this._id}}">
-					<input type="submit" class="btn blue" value="Edit">
-				</form>
-				<form action="/delete-comment" method = "post" enctype="multipart/form-data">
-					<input type="hidden" id=="id" name="id" value="{{this._id}}">
-					<input type="hidden" id=="studentid" name="studentid" value="{{this.student._id}}">
-					<input type="hidden" id=="type" name="type" value="{{this.type}}">
-					<input type="submit" class="btn blue" value="Delete">
-				</form>
-				
+				<div class="formsidebyside">
+					<form action="/edit-comment" method = "post" enctype="multipart/form-data">
+						<input type="hidden" id=="studentid" name="studentid" value="{{this.student._id}}">
+						<input type="hidden" id=="id" name="id" value="{{this._id}}">
+						<input type="submit" class="btn blue" value="Edit">
+					</form>
+				</div>
+				<div class="formsidebyside">
+					<form action="/delete-comment" method = "post" enctype="multipart/form-data">
+						<input type="hidden" id=="id" name="id" value="{{this._id}}">
+						<input type="hidden" id=="studentid" name="studentid" value="{{this.student._id}}">
+						<input type="hidden" id=="type" name="type" value="{{this.type}}">
+						<input type="submit" class="btn blue" value="Delete">
+					</form>
+				</div>
 				</div>
 			{{/each}}		
 		</div>

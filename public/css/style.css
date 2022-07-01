@@ -37,6 +37,12 @@
 	display: none;
 	position: absolute;
 }
+.formsidebyside {
+	display: inline-block;
+	margin-block-end: 0.38em;
+	border: none;
+	padding: 0px;
+}
 #login {
     margin-bottom: 10px;
 }

@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>Edit {{#each users}}{{this.firstName}} {{this.lastName}}{{/each}}'s Profile</title>
+		<link href="../css/style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>	
+		<form action="/back-to-profile" method = "post" enctype="multipart/form-data">
+			<input type="hidden" id=="type" name="type" value="{{#each posts}}{{this._id}}{{/each}}">
+			<input type="submit" class="btn green" value="Back">
+		</form>
+		<form action="/update-profile" method = "post" enctype="multipart/form-data">
+			<input type="hidden" id=="id" name="id" value="{{#each users}}{{this._id}}{{/each}}">
+			<label for="firstname">Enter your First Name</label>
+			<input id="firstName" name="firstName" type="text"><br>
+			<label for="lastname">Enter your Last Name</label>
+			<input id="lastName" name="lastName" type="text"><br>
+			<label for="password">Enter new password</label>
+			<input id="password" name="password" type="password"><br>
+			<label for="confirmPassword">Re-enter new password</label>
+			<input id="confirmPassword" name="confirmPassword" type="password"><br>
+			<label for="email">Enter DLSU email</label>
+			<input id="email" name="email" type="email"><br>
+			<input type="submit">
+		</form><br>	
+		*Note that not entering anything for first name, last name, and/or e-mail,  will change that field to blank
+		<p id="error">{{profileError}}</p>
+		<script src = "#"></script>
+    </body>
+</html>

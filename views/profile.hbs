@@ -6,41 +6,66 @@
     <body>
 		<img src = "{{#each users}}{{this.image}}{{/each}}" width = 200px height = 200px></img><br>
 		<form action="/edit-profile-pic" method = "post" enctype="multipart/form-data">
+			<input type="hidden" id=="studentid" name="studentid" value="{{#each users}}{{this._id}}{{/each}}">
 			<input type = "file" name="image"> <br />
 			<input type="submit" class="btn green" value="Change Profile Picture">
 		</form>
 		<a href = "/Home"><button class = "btn green">HOME</button></a><br /><br />	
-		<span>Sort By:</span>
-		<select name="choice" id="Search By">
-			<option value="earliest">Earliest Post</option>
-			<option value="latest">Latest Update</option>
-			<option value="likes">Most Likes</option>
-			<option value="dislikes">Most Dislikes</option>
-		</select><button>Sort</button>
-		<br />
-        <span>Search:</span>
-        <input type="search" placeholder="Enter keyword..."/>
-		<button>Search</button>
-		<br />
-		<a href = "#"><button class = "btn green">Edit Profile</button></a>
-		<a href = "#"><button class = "btn green">Delete Account</button></a>
-		<caption> {{#each users}}<h1>{{this.firstName}} {{this.lastName}}</h1>  <h3>ID No. {{this.idNumber}}</h3>{{/each}} </caption>
-        <table>
-            
+		<form action="/sort-profile-posts" method = "post" enctype="multipart/form-data">
+			<span>Sort By:</span>
+			<input type="hidden" id=="student" name="student" value="{{#each users}}{{this._id}}{{/each}}">
+			<select name="choice" id="Search By">	
+				<option value="earliest">Earliest Post</option>
+				<option value="latest">Latest Post</option>
+				<option value="alphabetical">Alphabetical</option>	
 			
-            <!--<tr>
-                <th width="10%"> Date Created </th>
+				<input type="submit" value="Sort">
+			</select>
+		</form>
+		<form action="/search-profile-posts" method = "post" enctype="multipart/form-data">
+			<input type="hidden" id=="student" name="student" value="{{#each users}}{{this._id}}{{/each}}">
+			<span>Search:</span>
+			<input type="search" name="search" placeholder="Enter keyword..."/>
+			<input type="submit" value="Search">
+		</form>
+		<div class="formsidebyside">
+			<form action="/edit-profile" method = "post" enctype="multipart/form-data">
+				<input type="hidden" id=="studentid" name="studentid" value="{{#each users}}{{this._id}}{{/each}}">
+				<input type="submit" class="btn blue" value="Edit Profile">
+			</form>
+		</div>
+		<div class="formsidebyside">
+			<form action="/delete-profile" method = "post" enctype="multipart/form-data">
+				<input type="hidden" id=="studentid" name="studentid" value="{{#each users}}{{this._id}}{{/each}}">
+				<input type="submit" class="btn blue" value="Delete Profile">
+			</form>
+		</div>
+		<p id="error">{{profileError}}</p>
+		<caption> {{#each users}}<h1>{{this.firstName}} {{this.lastName}}</h1>  <h3>ID No. {{this.idNumber}}</h3>{{/each}} </caption> <br>
+		<h1>Posts Created</h1> <br>
+        <table>
+            <tr>
+                <th width="10%"> Original Poster </th>
                 <th width="70%"> Subject </th>
                 <th width="10%"> No. of Replies </th>
-				<th width="10%"> Last Reply </th>
+				<th width="10%"> Date Created </th>
             </tr>
             
+            {{#each posts}}
             <tr>
-                <td> Jan. 1, 2025 </td>
-                <td> <a href="Discussion1.html">Happy New Years</a> </td>
-                <td> 6 </td>
-				<td> Jan 1, 2026 at 00:00:01</td>
+				<form action="/post" method = "post">
+				<input type="hidden" id=="postID" name="postID" value="{{this._id}}">
+				<input type="hidden" id=="datetime" name="datetime" value="{{this.datetime}}"> 
+				<input type="hidden" id=="title" name="title" value="{{this.title}}"> 
+				<input type="hidden" id=="content" name="content" value="{{this.content}}"> 
+				<input type="hidden" id=="type" name="type" value="{{type}}">
+				<td> <a href="/poster-profile?id={{this.student._id}}">{{this.student.firstName}} {{this.student.lastName}}</a></td>	 
+                <td> <input type="submit" class="btn green" value="{{this.title}}"></td>
+                <td> {{this.commentNo}} </td>
+				<td> {{this.datetime}} </td>
+				</form>				
             </tr>
+            {{/each}}
         </table>
     </body>
 </html>

@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>Delete {{#each users}}{{this.firstName}} {{this.lastName}}{{/each}}'s Profile</title>
+		<link href="../css/style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>	
+		<form action="/back-to-profile" method = "post" enctype="multipart/form-data">
+			<input type="hidden" id=="type" name="type" value="{{#each posts}}{{this._id}}{{/each}}">
+			<input type="submit" class="btn green" value="Back">
+		</form>
+		<form action="/final-delete-profile" method = "post" enctype="multipart/form-data">
+			<input type="hidden" id=="id" name="id" value="{{#each users}}{{this._id}}{{/each}}">
+			<label for="password">Enter new password</label>
+			<input id="password" name="password" type="password"><br>
+			<label for="confirmPassword">Re-enter new password</label>
+			<input id="confirmPassword" name="confirmPassword" type="password"><br>
+			<input type="submit">
+		</form><br>	
+		<p id="error">{{profileError}}</p>
+		<script src = "#"></script>
+    </body>
+</html>

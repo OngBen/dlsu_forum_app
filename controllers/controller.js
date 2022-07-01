@@ -104,14 +104,98 @@ const controller = {
 	
 	getProfile: async(req,res)=>{
 		console.log(req.session.user);
+		const posts = await Post.find({student:req.session.user}).populate("student");
 		const users = await User.find({_id:req.session.user});
-		res.render("profile", {users});
+		res.render("profile", {posts, users});
 	},
 	
 	postProfile: async(req,res)=>{
 		console.log(req.session.user);
+		const posts = await Post.find({student:req.session.user}).populate("student");
 		const users = await User.find({_id:req.session.user});
-		res.render("profile", {users});
+		res.render("profile", {posts, users});
+	},
+	
+	postSortProfilePosts: async(req,res)=>{
+		const posts = (req.body.choice == "earliest") ? await Post.find({student:req.body.student}).populate("student").sort({datetime: 1}): ((req.body.choice == "latest") ? await Post.find({student:req.body.student}).populate("student").sort({datetime: -1}) : await Post.find({student:req.body.student}).populate("student").sort({title: 1}));
+		const users = await User.find({_id:req.body.student});
+		res.render("profile", {posts, users});
+	},
+	
+	postSearchProfilePosts: async(req,res)=>{
+		const posts = await Post.find({student:req.body.student, title: new RegExp(req.body.search, "i")}).populate("student");
+		const users = await User.find({_id:req.body.student});
+		res.render("profile", {posts, users});
+	},
+	
+	postEditProfile: async(req,res)=>{
+		if (req.session.user == req.body.studentid){
+			const users = await User.findById(req.body.studentid);
+			res.render("EditProfile.hbs", {users});
+		}
+		else{
+			const posts = await Post.find({student:req.body.studentid}).populate("student");
+			const users = await User.find({_id:req.body.studentid});
+			res.render("profile", {posts, users, profileError: "*You do not have the authorization to edit another student's post."});
+		}	
+	},
+	
+	postUpdateProfile: async(req,res)=>{
+		if (req.body.password != "" && req.body.confirmPassword != ""){
+			if (req.body.password == req.body.confirmPassword){
+				var password = await bcrypt.hash(req.body.password, 10);
+				const users = await	User.updateOne({_id:req.body.id},{$set: {firstName:req.body.firstName, lastName:req.body.lastName, email: req.body.email, password: password}});
+				res.redirect("/profile");
+			}
+			else{
+				const users = await User.findById(req.body.id);
+				res.render("EditProfile.hbs", {users, profileError:"*Password and Confirm Password do not match"});
+			}
+		}
+		else{
+			const users = await User.findById(req.body.id);
+			res.render("EditProfile.hbs", {users, profileError:"*Password and Confirm Password must not be empty"});
+		}
+	},
+	
+	postDeleteProfile: async(req,res)=>{
+		if (req.session.user == req.body.studentid){
+			const users = await User.findById(req.body.studentid);
+			res.render("DeleteProfile.hbs", {users});
+		}
+		else{
+			const posts = await Post.find({student:req.body.studentid}).populate("student");
+			const users = await User.find({_id:req.body.studentid});
+			res.render("profile", {posts, users, profileError: "*You do not have the authorization to edit another student's post."});
+		}	
+	},
+	
+	postFinalDeleteProfile: async(req,res)=>{
+		const users = await User.findById(req.body.id);
+		if (req.body.password != "" && req.body.confirmPassword != ""){
+			if (req.body.password == req.body.confirmPassword){
+				var result = await bcrypt.compare(req.body.password, users.password);
+				if (result){
+					const posts = await Post.deleteMany({student:req.body.id});
+					const comments = await Comment.deleteMany({student:req.body.id});
+					const users = await User.deleteOne({_id:req.body.id});
+					res.redirect("/logout");
+				}
+				else{
+					res.render("DeleteProfile.hbs", {users, profileError:"*The password is wrong"});
+				}
+			}
+			else{
+				res.render("DeleteProfile.hbs", {users, profileError:"*Password and Confirm Password do not match"});
+			}
+		}
+		else{
+			res.render("DeleteProfile.hbs", {users, profileError:"*Password and Confirm Password must not be empty"});
+		}
+	},
+	
+	postBackProfile: async(req,res)=>{
+		res.redirect("/profile");
 	},
 	
 	postAbout: function(req,res){
@@ -120,8 +204,9 @@ const controller = {
 	
 	getPosterProfile: async(req,res)=>{
 		console.log(req.query.id);
+		const posts = await Post.find({student:req.query.id}).populate("student");
 		const users = await User.find({_id:req.query.id});
-		res.render("profile", {users});
+		res.render("profile", {posts, users});
 	},
 	
 	postNewPost: function(req,res){
@@ -284,12 +369,22 @@ const controller = {
 	},
 	
 	postEditProfilePic: async(req,res)=>{
-		if (req.files != null){
-			const {image} = req.files;
-			const users = await User.updateOne({_id:req.session.user},{$set: {image:'/images/'+image.name}});
-			image.mv(path.resolve(__dirname,'../public/images',image.name));
+		if (req.session.user == req.body.studentid){	
+			if (req.files != null){
+				const {image} = req.files;
+				const users = await User.updateOne({_id:req.session.user},{$set: {image:'/images/'+image.name}});
+				image.mv(path.resolve(__dirname,'../public/images',image.name));
+			}
+			else{
+				const users = await User.updateOne({_id:req.session.user},{$set: {image:'/images/defaultpicture.jpg'}});
+			}
+			res.redirect('/profile');
 		}
-		res.redirect('/profile')
+		else{
+			const posts = await Post.find({student:req.body.studentid}).populate("student");
+			const users = await User.find({_id:req.body.studentid});
+			res.render("profile", {posts, users, profileError: "*You do not have the authorization to edit another student's profile."});
+		}
 	}
 }
 
