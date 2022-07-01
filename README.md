@@ -1,9 +1,13 @@
 Created by:
+
 Coronado, Calvin
+
 Ong, Ben
+
 Reyes, Cyril
 
 How to run the program:
+
 1.) Unzip the file in you local computer, open command prompt, and enter "node index.js" in the same directory as this README
 
 2.) Go to localhost:3000 on a browser, where index.hbs will be rendered, giving you either the choice to log-in or sign-up.
